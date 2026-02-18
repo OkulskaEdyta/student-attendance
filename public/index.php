@@ -1,12 +1,18 @@
 <?php
 const PUBLIC_PATH = __DIR__;
-
+const APP_PATH = PUBLIC_PATH . '/..';
+const VENDOR_PATH = PUBLIC_PATH . '/../vendor';
 const VIEWS_DIR = PUBLIC_PATH . '/../views';
+
+require VENDOR_PATH . '/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(APP_PATH);
+$dotenv->load();
+
 
 include '../db/queries.php';
 
 $title = '';
-
 
 switch ($_SERVER['REQUEST_URI']) {
     case '':
@@ -20,9 +26,9 @@ switch ($_SERVER['REQUEST_URI']) {
         break;
     case '/etudiants':
         $title = 'Tous les étudiants';
-        include VIEWS_DIR .'/students/index.php';
+        include VIEWS_DIR . '/students/index.php';
         break;
     default:
         $title = '404';
-        include VIEWS_DIR .'/404.php';
+        include VIEWS_DIR . '/404.php';
 }
